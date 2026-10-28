@@ -20,7 +20,7 @@ const notices = [
   ['비행 안전 수칙 안내', '2025.09.10']
 ];
 function Brand() {
-  return <a className="brand" href="#home" aria-label="열풍패러글라이딩 클럽 홈"><img src={logoUrl} alt="열풍패러글라이딩 클럽 로고" /><span className="brand-copy"><strong>열풍패러글라이딩 클럽</strong><small>HOTPARA GLIDING CLUB</small></span></a>;
+  return <a className="brand" href="#home" aria-label="열풍패러글라이딩 클럽 홈"><img src={logoUrl} alt="열풍패러글라이딩 클럽 로고" /><span className="brand-copy"><strong>열풍패러글라이딩 클럽</strong><small>HOTWIND PARAGLIDING CLUB</small></span></a>;
 }
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function App() {
         <img className="hero-image" src={slide === 1 ? 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2200&q=90' : slide === 2 ? 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90' : 'https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=2200&q=90'} alt="패러글라이딩과 산악 풍경"/>
         <div className="hero-overlay"/>
         <div className="hero-content">
-          <div className="hero-brand"><img src={logoUrl} alt="열풍 로고"/><div><strong>열풍패러글라이딩 클럽</strong><span>HOTPARA GLIDING CLUB</span></div></div>
+          <div className="hero-brand"><img src={logoUrl} alt="열풍 로고"/><div><strong>열풍패러글라이딩 클럽</strong><span>HOTWIND PARAGLIDING CLUB</span></div></div>
           <h1>하늘을 나는 즐거움,<br/><em>열풍과 함께!</em></h1>
           <p>열풍패러글라이딩 클럽은 패러글라이딩을 사랑하는 사람들이 모여<br className="desktop-break"/> 함께 비행하고, 소통하며, 즐기는 동호회입니다.</p>
           <button className="join-button" onClick={()=>go('events')}>동호회 가입하기 <ArrowRight size={20}/></button>
@@ -69,7 +69,7 @@ export default function App() {
       </div>
       <section className="spot-strip" id="spots"><div><span className="spot-kicker">FLYING SPOTS</span><h2>다음 비행은 어디로 떠나볼까요?</h2><p>활공장 정보와 안전한 비행 팁을 함께 나눠요.</p></div><button onClick={()=>setNotice('활공장 정보는 실제 운영진 자료를 연결한 뒤 제공됩니다.')}>활공장 정보 보기 <ArrowRight size={16}/></button></section>
     </main>
-    <footer className="footer"><Brand/><span>하늘을 나는 즐거움, 열풍과 함께!</span><small>© 2026 HOTPARA GLIDING CLUB</small></footer>
+    <footer className="footer"><Brand/><span>하늘을 나는 즐거움, 열풍과 함께!</span><small>© 2026 HOTWIND PARAGLIDING CLUB</small></footer>
     {notice && <div className="modal-backdrop" onClick={()=>setNotice('')}><div className="notice-modal" role="dialog" aria-modal="true" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={()=>setNotice('')} aria-label="닫기"><X/></button><div className="modal-logo"><img src={logoUrl} alt="열풍 로고"/></div><h2>열풍패러글라이딩 클럽</h2><p>{notice}</p><button className="modal-confirm" onClick={()=>setNotice('')}>확인</button></div></div>}
   </div>;
 }
