@@ -1,0 +1,39 @@
+import React, { useState } from 'react';
+import { ArrowRight, ArrowUpRight, CalendarDays, Compass, Menu, Mountain, Wind, X, Instagram } from 'lucide-react';
+
+const stories = [
+ { category:'비행 후기', date:'2026. 10. 18', title:'가을 하늘을 가득 채운 우리들의 비행', desc:'바람이 좋은 날, 함께 이륙하고 같은 풍경을 바라본 하루의 기록.', image:'https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=1200&q=85' },
+ { category:'동호회 소식', date:'2026. 10. 12', title:'처음 만나는 하늘, 함께라서 든든해요', desc:'새로운 회원들과 나눈 설렘 가득한 첫 비행 이야기.', image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=85' },
+ { category:'비행 포인트', date:'2026. 10. 05', title:'이번 주말, 어디로 날아가 볼까요?', desc:'풍경도 좋고 마음도 탁 트이는 우리의 비행 명소.', image:'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=85' }
+];
+const photos = [
+ ['https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=900&q=80','바람이 머무는 순간'],
+ ['https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80','함께라서 더 좋은 날'],
+ ['https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80','산 너머 새로운 풍경'],
+ ['https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80','우리의 주말 여행']
+];
+export default function App() {
+ const [menuOpen,setMenuOpen] = useState(false);
+ const [filter,setFilter] = useState('전체');
+ const [notice,setNotice] = useState('');
+ const visible = filter === '전체' ? stories : stories.filter(s => s.category === filter);
+ const go = id => { document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); setMenuOpen(false); };
+ return <div className="site-shell">
+  <div className="topline"><span>HOT PARA COMMUNITY</span><span>FLY TOGETHER, GO FURTHER ↗</span></div>
+  <header className="header">
+   <a className="brand" href="#home"><span className="brand-mark"><Wind size={24}/></span><span className="brand-type">HOT<span>PARA</span><small>PARAGLIDING CLUB</small></span></a>
+   <button className="mobile-menu" aria-label="메뉴 열기" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?<X/>:<Menu/>}</button>
+   <nav className={menuOpen?'nav nav-open':'nav'}>{[['홈','home'],['비행 이야기','stories'],['갤러리','gallery'],['모임 일정','meetup'],['동호회 소개','about']].map(([t,id])=><button key={id} onClick={()=>go(id)}>{t}</button>)}<button className="nav-cta" onClick={()=>go('meetup')}>함께 날기 <ArrowUpRight size={15}/></button></nav>
+  </header>
+  <main>
+   <section className="hero" id="home"><img className="hero-image" src="https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=2200&q=90" alt="산과 하늘의 아름다운 풍경"/><div className="hero-shade"/><div className="hero-content"><div className="eyebrow light"><span className="eyebrow-dot"/> HOT PARA · PARAGLIDING CLUB</div><h1>하늘을 나는 즐거움,<br/>함께라서 더 <em>특별한 순간.</em></h1><p>바람을 읽고, 하늘을 느끼고, 좋은 사람들과<br className="desktop-break"/> 오래 기억될 순간을 만들어 갑니다.</p><div className="hero-actions"><button className="button button-orange" onClick={()=>go('stories')}>우리의 비행 이야기 <ArrowUpRight size={17}/></button><button className="text-link light-link" onClick={()=>go('about')}>동호회 알아보기 <ArrowRight size={16}/></button></div></div><div className="hero-side-note">THE SKY IS OURS</div><div className="hero-bottom"><span><Mountain size={16}/> OUR PLAYGROUND, THE SKY</span><span>좋은 바람, 좋은 사람, 그리고 우리 ↘</span></div></section>
+   <section className="intro-strip" id="about"><div className="intro-label"><span className="eyebrow">MORE THAN FLYING</span><span className="intro-number">01 — 03</span></div><h2>하늘 위에서 만나는<br/><span>우리만의 이야기.</span></h2><p>비행 실력보다 먼저 나누는 안전과 배려.<br/>HOT PARA는 함께 배우고, 함께 날고, 함께 웃는 사람들의 모임입니다.</p><button className="round-arrow" aria-label="비행 이야기 보기" onClick={()=>go('stories')}>↘</button></section>
+   <section className="section stories-section" id="stories"><div className="section-head"><div><span className="eyebrow">LATEST STORIES</span><h2>하늘 위의 기록<span className="orange-dot">.</span></h2><p>비행의 순간부터 우리들의 일상까지, 하나씩 기록합니다.</p></div><button className="outline-link" onClick={()=>setFilter('전체')}>전체 이야기 보기 <ArrowRight size={16}/></button></div><div className="filter-row">{['전체','비행 후기','동호회 소식','비행 포인트'].map(f=><button key={f} className={filter===f?'filter active':'filter'} onClick={()=>setFilter(f)}>{f}</button>)}</div><div className={visible.length===1?'story-grid single-story':'story-grid'}>{visible.map((s,i)=><article className={'story-card '+(filter==='전체'&&i===0?'story-feature':'')} key={s.title}><button className="story-image-wrap" onClick={()=>setNotice('게시글 상세보기는 게시판 연동 후 이용할 수 있습니다.')} aria-label={s.title+' 상세 보기'}><img src={s.image} alt="비행과 자연 풍경"/><span className="image-arrow"><ArrowUpRight size={20}/></span><span className="story-label">{s.category}</span></button><div className="story-meta"><span>FLIGHT JOURNAL</span><span>{s.date}</span></div><h3>{s.title}</h3><p>{s.desc}</p></article>)}</div></section>
+   <section className="meetup-banner" id="meetup"><div className="meetup-image"/><div className="meetup-content"><span className="eyebrow light"><CalendarDays size={14}/> NEXT FLIGHT</span><h2>다음 비행,<br/>함께 하실래요?</h2><p>좋은 바람이 부는 날, 함께 하늘로 떠나요.<br/>모임 일정과 참여 방법을 확인해 보세요.</p><button className="button button-white" onClick={()=>setNotice('모임 참여 문의는 실제 연락처 또는 문의 폼 연결 후 이용할 수 있습니다.')}>모임 참여 문의하기 <ArrowUpRight size={16}/></button></div><div className="meetup-side">LET'S FLY ── <Wind size={27}/></div></section>
+   <section className="section gallery-section" id="gallery"><div className="section-head"><div><span className="eyebrow">MOMENTS IN THE SKY</span><h2>우리의 비행 갤러리<span className="orange-dot">.</span></h2><p>사진 한 장에 담긴 바람과 햇살, 그리고 동료들.</p></div><button className="outline-link" onClick={()=>setNotice('사진 업로드와 전체 갤러리는 기능 연동 후 이용할 수 있습니다.')}>사진 더 보기 <ArrowRight size={16}/></button></div><div className="gallery-grid">{photos.map(([src,title],i)=><button className={'gallery-item gallery-'+(i+1)} key={title} onClick={()=>setNotice('사진 갤러리는 실제 사진 자료 연결 후 이용할 수 있습니다.')}><img src={src} alt={title}/><span className="gallery-caption"><small>HOT PARA MOMENTS</small><strong>{title}</strong></span><span className="gallery-open"><ArrowUpRight size={18}/></span></button>)}</div></section>
+   <section className="join-strip"><div className="join-icon"><Compass size={27}/></div><div><span className="eyebrow">YOUR NEXT ADVENTURE STARTS HERE</span><h2>하늘을 좋아한다면, 이미 우리 편입니다.</h2><p>처음이어도 괜찮아요. 안전하게 배우고 함께 즐겨요.</p></div><button className="button button-dark" onClick={()=>go('meetup')}>우리와 함께하기 <ArrowRight size={16}/></button></section>
+  </main>
+  <footer className="footer"><div className="footer-top"><a className="brand footer-brand" href="#home"><span className="brand-mark"><Wind size={24}/></span><span className="brand-type">HOT<span>PARA</span><small>PARAGLIDING CLUB</small></span></a><p>하늘을 나는 즐거움, 함께라서 더 특별한 순간.</p><div className="socials"><a href="#gallery" aria-label="인스타그램 갤러리"><Instagram size={17}/></a></div></div><div className="footer-bottom"><span>© 2026 HOT PARA PARAGLIDING CLUB</span><span>FLY SAFE. FLY TOGETHER.</span></div></footer>
+  {notice&&<div className="modal-backdrop" onClick={()=>setNotice('')}><div className="notice-modal" role="dialog" aria-modal="true" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={()=>setNotice('')} aria-label="닫기"><X/></button><div className="modal-icon"><Wind size={26}/></div><h2>HOT PARA 안내</h2><p>{notice}</p><button className="button button-dark modal-button" onClick={()=>setNotice('')}>확인</button></div></div>}
+ </div>;
+}
